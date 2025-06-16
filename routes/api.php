@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\Api\AuthApiController;
 
 
 /*
@@ -17,13 +17,13 @@ use App\Http\Controllers\userController;
 */
 
 
-Route::post('/login', [userController::class, 'loginUser'])->name('login');
-Route::post('/register', [userController::class, 'register'])->name('register');
+Route::post('/login', [AuthApiController::class, 'authenticate'])->name('login');
+Route::post('/register', [AuthApiController::class, 'register'])->name('register');
 // Route::get('profile', [userController::class, 'getUser']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/profile', [userController::class, 'getUser']);
-    Route::post('/logout', [userController::class, 'logout']);
+    Route::get('/getUser', [AuthApiController::class, 'getUser']);
+    Route::post('/logout', [AuthApiController::class, 'logout']);
 });
 
     

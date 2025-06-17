@@ -8,7 +8,7 @@
         <div class="container-fluid pt-3 pb-5 text-center">
             <h1 class="display-4 mb-3">Terima kasih atas rasa kepedulian pada perasaanmu</h1>
 
-            <img src="{{ asset('images/Heros.png') }}" alt="Ilustrasi Emosi"
+            <img src="{{ asset('images/landing/Heros.png') }}" alt="Ilustrasi Emosi"
                 class="img-fluid rounded mx-auto d-block" style="max-width: 450px; height: auto; margin-bottom: 30px;">
 
             <p class="fs-5 fw-light mb-4">

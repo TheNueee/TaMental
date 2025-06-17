@@ -23,5 +23,21 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'email_verified_at' => now()
         ]);
+
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin123'),
+            'role' => 'admin',
+            'email_verified_at' => now()
+        ]);
+
+        User::factory()->create([
+            'name' => 'profesional',
+            'email' => 'profesional@gmail.com',
+            'password' => Hash::make('admin123'),
+            'role' => 'professional',
+            'email_verified_at' => now()
+        ]);
     }
 }

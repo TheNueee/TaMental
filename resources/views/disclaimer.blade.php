@@ -8,7 +8,7 @@
         <!-- Kolom Kiri: Gambar -->
         <div class="col-md-6 d-flex justify-content-center">
             <div class="d-flex align-items-center">
-                <img src="{{ asset('images/Disclaimer.png') }}" alt="Ilustrasi Pengujian Mental"
+                <img src="{{ asset('images/disclaimer/Disclaimer.png') }}" alt="Ilustrasi Pengujian Mental"
                     class="img-fluid" style="max-height: 460px; object-fit: contain;">
             </div>
         </div>

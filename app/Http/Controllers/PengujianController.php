@@ -7,6 +7,7 @@ use App\Models\PengujianDass21;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Models\User;
 
 class PengujianController extends Controller
 {
@@ -33,7 +34,6 @@ class PengujianController extends Controller
             $skor = $this->hitungSkor($jawaban);
 
             if (Auth::guest()) {
-                // Simpan hasil di session untuk guest
                 session([
                     'hasil_guest' => [
                         'kategori_depresi' => $this->kategoriDepresi($skor['depresi']),
@@ -44,7 +44,6 @@ class PengujianController extends Controller
 
                 return redirect()->route('hasil');
             } else {
-                // Simpan ke database untuk user yang login
                 $pengujian = PengujianDass21::create([
                     'user_id' => Auth::id(),
                     'nama' => Auth::user()->name,
@@ -70,8 +69,10 @@ class PengujianController extends Controller
 
     public function hasil(Request $request, $id = null)
     {
+        $show_recommendation = false;
+        $rekomendasi_profesional = [];
+
         if (Auth::guest()) {
-            // Ambil hasil dari session untuk guest
             $hasil = session('hasil_guest');
 
             if (!$hasil) {
@@ -79,19 +80,35 @@ class PengujianController extends Controller
                     ->with('error', 'Hasil tidak tersedia. Silakan lakukan pengujian terlebih dahulu.');
             }
 
-            // Hapus dari session setelah ditampilkan
             session()->forget('hasil_guest');
+
+            $kategori_depresi = $hasil['kategori_depresi'];
+            $kategori_kecemasan = $hasil['kategori_kecemasan'];
+            $kategori_stres = $hasil['kategori_stres'];
+
+            if (
+                in_array($kategori_depresi, ['Parah', 'Sangat Parah']) ||
+                in_array($kategori_kecemasan, ['Parah', 'Sangat Parah']) ||
+                in_array($kategori_stres, ['Parah', 'Sangat Parah'])
+            ) {
+                $show_recommendation = true;
+                $rekomendasi_profesional = User::where('role', 'professional')
+                    ->inRandomOrder()
+                    ->take(3)
+                    ->get();
+            }
 
             return view('hasil', [
                 'model' => null,
-                'kategori_depresi' => $hasil['kategori_depresi'],
-                'kategori_kecemasan' => $hasil['kategori_kecemasan'],
-                'kategori_stres' => $hasil['kategori_stres'],
+                'kategori_depresi' => $kategori_depresi,
+                'kategori_kecemasan' => $kategori_kecemasan,
+                'kategori_stres' => $kategori_stres,
                 'is_guest' => true,
+                'show_recommendation' => $show_recommendation,
+                'rekomendasi_profesional' => $rekomendasi_profesional,
             ]);
         }
 
-        // Untuk user yang login
         if (!$id) {
             return redirect()->route('pengujiandass21')
                 ->with('error', 'ID pengujian tidak valid.');
@@ -106,12 +123,30 @@ class PengujianController extends Controller
                 ->with('error', 'Data hasil pengujian tidak ditemukan atau tidak diizinkan.');
         }
 
+        $kategori_depresi = $model->kategori_depresi;
+        $kategori_kecemasan = $model->kategori_kecemasan;
+        $kategori_stres = $model->kategori_stres;
+
+        if (
+            in_array($kategori_depresi, ['Parah', 'Sangat Parah']) ||
+            in_array($kategori_kecemasan, ['Parah', 'Sangat Parah']) ||
+            in_array($kategori_stres, ['Parah', 'Sangat Parah'])
+        ) {
+            $show_recommendation = true;
+            $rekomendasi_profesional = User::where('role', 'professional')
+                ->inRandomOrder()
+                ->take(3)
+                ->get();
+        }
+
         return view('hasil', [
             'model' => $model,
-            'kategori_depresi' => $model->kategori_depresi,
-            'kategori_kecemasan' => $model->kategori_kecemasan,
-            'kategori_stres' => $model->kategori_stres,
+            'kategori_depresi' => $kategori_depresi,
+            'kategori_kecemasan' => $kategori_kecemasan,
+            'kategori_stres' => $kategori_stres,
             'is_guest' => false,
+            'show_recommendation' => $show_recommendation,
+            'rekomendasi_profesional' => $rekomendasi_profesional,
         ]);
     }
 

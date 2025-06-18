@@ -104,12 +104,43 @@
                             <p class="mb-3">Berdasarkan hasil pengujian, ada indikasi tingkat yang tinggi pada salah satu aspek. Konsultasi dengan profesional dapat membantu Anda menemukan solusi terbaik.</p>
 
                             @if(!$is_guest)
-                                <a href="" class="btn btn-cta">Konsultasi Sekarang</a>
-                                {{-- {{ route('client.konsultasi') }} --}}
                             @else
                                 <a href="{{ route('register.form') }}" class="btn btn-outline-primary me-2">Daftar Akun</a>
                                 <a href="{{ route('login.form') }}" class="btn btn-outline-secondary">Login untuk Konsultasi</a>
                             @endif
+                        </div>
+                    @endif
+
+                    {{-- Rekomendasi Profesional --}}
+                    @if($show_recommendation && count($rekomendasi_profesional))
+                        <div class="mt-5">
+                            <h5 class="mb-3 text-primary">Profesional yang Direkomendasikan:</h5>
+                            <div class="row">
+                                @foreach($rekomendasi_profesional as $pro)
+                                    <div class="col-md-4 mb-3">
+                                        <div class="card h-100 shadow-sm text-center">
+                                            <div class="card-body">
+                                                <img src="https://via.placeholder.com/80x80.png?text=Foto" class="rounded-circle mb-2" alt="Foto">
+                                                <h6 class="mb-0">{{ $pro->name }}</h6>
+                                                <small class="text-muted">{{ $pro->gelar ?? 'Profesional' }}</small>
+                                                <div class="mt-3">
+                                                    @if($is_guest)
+                                                        <a href="{{ route('login.form') }}" class="btn btn-sm btn-outline-primary">Buat Janji</a>
+                                                    @else
+                                                        <a href="{{ route('booking.page', ['professional' => $pro->id]) }}" class="btn btn-sm btn-outline-success">Buat Janji</a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div class="text-end mt-3">
+                                <a href="{{ route('daftarprofesional') }}" class="btn btn-link text-decoration-none">
+                                    Lihat Daftar Profesional Lengkap →
+                                </a>
+                            </div>
                         </div>
                     @endif
 

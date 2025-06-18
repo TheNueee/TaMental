@@ -287,40 +287,37 @@
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('disclaimer') }}">Pengujian Kesehatan Mental</a>
+                                <a class="nav-link {{ Request::is('disclaimer') ? 'active' : '' }}" href="{{ route('disclaimer') }}">Pengujian</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Tentang Kami</a>
+                                <a class="nav-link {{ Request::is('daftarprofesional') ? 'active' : '' }}" href="{{ route('daftarprofesional')}}">Konsultasi</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Hubungi</a>
+                                <a class="nav-link {{ Request::is('tentang-kami') ? 'active' : '' }}" href="#">Tentang Kami</a>
                             </li>
                         @else
                             @php $role = Auth::user()->role; @endphp
 
                             @if($role === 'client')
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{{ route('client.dashboard') }}">Utama</a>
+                                    <a class="nav-link {{ Request::is('client/pengujian/riwayat') ? 'active' : '' }}" href="{{ route('client.pengujian.riwayat') }}">Pengujian</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('client.pengujian.riwayat') }}">Pengujian</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Konsultasi</a>
+                                    <a class="nav-link {{ Request::is('client/konsultasi') ? 'active' : '' }}" href="{{ route('client.konsultasi.index') }}">Konsultasi</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Pandora Box</a>
                                 </li>
-                            @elseif($role === 'professional')
+                             @elseif($role === 'professional')
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="{{ route('professional.dashboard') }}">Daftar Appointment</a>
+                                    <a class="nav-link {{ Request::is('professional/dashboard') ? 'active' : '' }}" href="{{ route('professional.dashboard') }}">Utama</a>
+                                </li> 
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('professional/konsultasi') ? 'active' : '' }}" href="{{ route('professional.konsultasi.index') }}">Jadwal Konsultasi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Jadwal</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Konsultasi</a>
-                                </li>
+                                    <a class="nav-link {{ Request::is('professional/klien') ? 'active' : '' }}" href="{{ route('professional.klien.index') }}">Daftar Klien</a>
+                                </li> 
                             @endif
                         @endguest
                     </ul>

@@ -68,4 +68,12 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
+    
+    /**
+     * Get the professional information associated with the user.
+     */
+    public function professional(): HasOne
+    {
+        return $this->hasOne(Professional::class);
+    }
 }

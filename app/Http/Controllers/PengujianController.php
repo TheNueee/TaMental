@@ -199,7 +199,7 @@ class PengujianController extends Controller
             ->with('success', 'Riwayat pengujian berhasil dihapus.');
     }
 
-    private function getPertanyaan(): array
+    public function getPertanyaan(): array
     {
         return [
             "Saya merasa bahwa diri saya menjadi marah karena hal-hal sepele.",

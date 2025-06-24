@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PengujianDass21;
@@ -20,9 +18,7 @@ class ProfessionalController extends Controller
     public function detailKlien($id)
     {
         $klien = User::with('pengujian')->findOrFail($id);
-
         $pengujian7HariTerakhir = $klien->pengujian->where('created_at', '>=', Carbon::now()->subDays(7));
-
         $avg = [
             'nilai_depresi' => $pengujian7HariTerakhir->avg('nilai_depresi'),
             'nilai_kecemasan' => $pengujian7HariTerakhir->avg('nilai_kecemasan'),
@@ -71,8 +67,6 @@ class ProfessionalController extends Controller
         ];
 
         $latest = $klien->pengujian->sortByDesc('created_at')->first();
-
-
         $latestKonsultasi = Konsultasi::where('client_id', $klien->id)
             ->where('professional_id', auth()->id())
             ->where('status', 'scheduled')
@@ -129,8 +123,45 @@ class ProfessionalController extends Controller
 
     public function daftarProfessional()
     {
-        // Ambil semua user dengan role professional
-        $professionals = User::where('role', 'professional')->get();
+        // Ambil semua user dengan role professional beserta relasi professional dan licenses
+        $professionals = User::where('role', 'professional')
+            ->with(['professional.licenses'])
+            ->get();
+
         return view('daftarprofesional', compact('professionals'));
+    }
+
+    /**
+     * Get professional detail for AJAX requests (optional for future enhancement)
+     */
+    public function getProfessionalDetail($id)
+    {
+        $professional = User::where('role', 'professional')
+            ->with(['professional.licenses'])
+            ->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $professional->id,
+                'name' => $professional->name,
+                'email' => $professional->email,
+                'photo' => $professional->photo,
+                'str_number' => $professional->professional->str_number ?? null,
+                'spesialisasi' => $professional->professional->spesialisasi ?? null,
+                'pengalaman_tahun' => $professional->professional->pengalaman_tahun ?? null,
+                'bio' => $professional->professional->bio ?? null,
+                'licenses' => $professional->professional->licenses->map(function ($license) {
+                    return [
+                        'id' => $license->id,
+                        'nama' => $license->nama,
+                        'nomor' => $license->nomor,
+                        'tanggal_terbit' => $license->tanggal_terbit,
+                        'tanggal_expired' => $license->tanggal_expired,
+                        'deskripsi' => $license->deskripsi,
+                    ];
+                }) ?? []
+            ]
+        ]);
     }
 }

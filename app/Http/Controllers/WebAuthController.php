@@ -33,7 +33,7 @@ class WebAuthController extends Controller
 
         Auth::login($user);
 
-        $request->session()->flash('success', 'Registration successful!');
+        $request->session()->flash('success', 'Registrasi Kamu Berhasil!');
 
         return redirect('/login');
     }

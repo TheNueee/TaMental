@@ -35,6 +35,7 @@ Route::middleware(['auth', 'role:client'])->group(function () {
 
     Route::get('/konsultasi/pemesanan/{professional}', [KonsultasiController::class, 'showBookingPage'])->name('booking.page');
     Route::post('/konsultasi/pemesanan/store', [KonsultasiController::class, 'store'])->name('booking.store');
+    Route::get('/konsultasi/detail/{konsultasi}', [KonsultasiController::class, 'detail'])->name('client.konsultasi.detail');
     Route::get('/konsultasi/riwayat', [KonsultasiController::class, 'index'])->name('client.konsultasi.index');
     Route::get('/konsultasi/riwayat/edit/{konsultasi}', [KonsultasiController::class, 'edit'])->name('client.konsultasi.edit');
     Route::put('/konsultasi/riwayat/update/{konsultasi}', [KonsultasiController::class, 'update'])->name('client.konsultasi.update');

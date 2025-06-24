@@ -1,22 +1,417 @@
 @extends('layouts.app')
-
-@section('title', 'Ubah Jadwal Konsultasi')
-
+@section('title', 'Reschedule Konsultasi')
 @section('content')
-<div class="container">
-    <h2>Reschedule Konsultasi</h2>
-    <form action="{{ route('client.konsultasi.update', $konsultasi) }}" method="POST">
-        @csrf @method('PUT')
-        <div class="mb-3">
-            <label>Jadwal Lama:</label>
-            <strong>{{ $konsultasi->scheduled_at->format('d M Y H:i') }}</strong>
+
+<div class="reschedule-container">
+    <!-- Header -->
+    <div class="reschedule-header">
+        <h2>📅 Penggantian Jadwal Konsultasi</h2>
+        <p class="reschedule-subtitle">Tentukan tanggal dan waktu untuk penggantian konsultasimu</p>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="reschedule-progress-steps">
+        <div class="reschedule-progress-step">
+            <div class="reschedule-step-circle completed">✓</div>
+            <span class="reschedule-step-label">Saat Ini</span>
         </div>
-        <div class="mb-3">
-            <label>Jadwal Baru:</label>
-            <input type="datetime-local" name="scheduled_at" class="form-control" required>
-            @error('scheduled_at')<div class="text-danger">{{ $message }}</div>@enderror
+        <div class="reschedule-step-connector completed"></div>
+        <div class="reschedule-progress-step">
+            <div class="reschedule-step-circle active">2</div>
+            <span class="reschedule-step-label">Penggantian</span>
         </div>
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <div class="reschedule-step-connector"></div>
+        <div class="reschedule-progress-step">
+            <div class="reschedule-step-circle pending">3</div>
+            <span class="reschedule-step-label">Konfirmasi</span>
+        </div>
+    </div>
+
+    <form action="{{ route('client.konsultasi.update', $konsultasi) }}" method="POST" id="rescheduleForm">
+        @csrf
+        @method('PUT')
+        
+        <!-- Main Card -->
+        <div class="reschedule-card">
+            <!-- Current Appointment Info -->
+            <div class="reschedule-card-section">
+                <h3 class="reschedule-section-title">
+                    <span>📋</span>
+                    Detail Konsultasi Saat Ini
+                </h3>
+                
+                <div class="reschedule-current-appointment">
+                    <div class="reschedule-appointment-detail">
+                        <span class="reschedule-detail-icon">🏥</span>
+                        <span class="reschedule-detail-label">Layanan:</span>
+                        <span class="reschedule-detail-value">{{ $konsultasi->layanan->name }}</span>
+                    </div>
+                    <div class="reschedule-appointment-detail">
+                        <span class="reschedule-detail-icon">👨‍⚕️</span>
+                        <span class="reschedule-detail-label">Profesional:</span>
+                        <span class="reschedule-detail-value">{{ $konsultasi->professional->name }}</span>
+                    </div>
+                    <div class="reschedule-appointment-detail">
+                        <span class="reschedule-detail-icon">📅</span>
+                        <span class="reschedule-detail-label">Waktu:</span>
+                        <span class="reschedule-detail-value">{{ $konsultasi->scheduled_at->format('l, d F Y') }}</span>
+                    </div>
+                    <div class="reschedule-appointment-detail">
+                        <span class="reschedule-detail-icon">🕐</span>
+                        <span class="reschedule-detail-label">Jam:</span>
+                        <span class="reschedule-detail-value">{{ $konsultasi->scheduled_at->format('H:i') }} WIB</span>
+                    </div>
+                    <div class="reschedule-appointment-detail">
+                        <span class="reschedule-detail-icon">⏱️</span>
+                        <span class="reschedule-detail-label">Durasi:</span>
+                        <span class="reschedule-detail-value">{{ $konsultasi->layanan->duration_minutes }} Menit</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar and Time Selection -->
+            <div class="reschedule-card-section">
+                <h3 class="reschedule-section-title">
+                    <span>🗓️</span>
+                    Pilih Waktu & Jam Penggantian 
+                </h3>
+                
+                <div class="reschedule-calendar-section">
+                    <!-- Calendar -->
+                    <div class="reschedule-calendar-container">
+                        <div class="reschedule-calendar-header">
+                            <h4 class="reschedule-month-year" id="monthYear"></h4>
+                            <div class="reschedule-calendar-nav">
+                                <button type="button" class="reschedule-nav-btn" id="prevMonth">‹</button>
+                                <button type="button" class="reschedule-nav-btn" id="nextMonth">›</button>
+                            </div>
+                        </div>
+                        
+                        <div class="reschedule-calendar-grid" id="calendar">
+                            <!-- Calendar will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Time Slots -->
+                    <div class="reschedule-time-slots-container" id="timeSlotsContainer" style="display: none;">
+                        <div class="reschedule-time-period">
+                            <h4 class="reschedule-period-title">🕐 Pilih Jam Konsultasi</h4>
+                            <div class="reschedule-time-slots-grid" id="allTimeSlots">
+                                <!-- All time slots will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Confirmation Section (Initially Hidden) -->
+            <div class="reschedule-card-section" id="confirmationSection" style="display: none;">
+                <h3 class="reschedule-section-title">
+                    <span>✅</span>
+                    Konfirmasi Jadwal Baru
+                </h3>
+
+                <div class="reschedule-confirmation-card">
+                    <div class="reschedule-confirmation-title">
+                        <span>🎉</span>
+                        Detail Jadwal Konsultasi Terbarumu
+                    </div>
+
+                    <div class="reschedule-confirmation-details">
+                        <div class="reschedule-confirmation-item">
+                            <span class="reschedule-confirmation-label">Layanan:</span>
+                            <span class="reschedule-confirmation-value">{{ $konsultasi->layanan->name }}</span>
+                        </div>
+                        <div class="reschedule-confirmation-item">
+                            <span class="reschedule-confirmation-label">Profesional:</span>
+                            <span class="reschedule-confirmation-value">{{ $konsultasi->professional->name }}</span>
+                        </div>
+                        <div class="reschedule-confirmation-item">
+                            <span class="reschedule-confirmation-label">Waktu:</span>
+                            <span class="reschedule-confirmation-value" id="confirmDate">-</span>
+                        </div>
+                        <div class="reschedule-confirmation-item">
+                            <span class="reschedule-confirmation-label">Jam:</span>
+                            <span class="reschedule-confirmation-value" id="confirmTime">-</span>
+                        </div>
+                        <div class="reschedule-confirmation-item">
+                            <span class="reschedule-confirmation-label">Durasi:</span>
+                            <span class="reschedule-confirmation-value">{{ $konsultasi->layanan->duration_minutes }} menit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policy Notice -->
+            <div class="reschedule-policy-notice">
+                <span class="reschedule-policy-icon">⚠️</span>
+                <div class="reschedule-policy-text">
+                    <strong>Kebijakan Reschedule:</strong> Tidak ada pembatalan atau reschedule yang diizinkan dalam 6 jam sebelum waktu janji temu. 
+                    Tanggal dan waktu yang tidak memenuhi syarat akan ditandai dengan warna merah dan dicoret.
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="reschedule-action-buttons">
+                <a href="{{ route('client.konsultasi.index') }}" class="btn-back">
+                    <span>←</span>
+                    Kembali
+                </a>
+                
+                <button type="submit" class="btn-confirm" id="confirmBtn" disabled>
+                    <span>💾</span>
+                    Konfirmasi Reschedule
+                </button>
+            </div>
+        </div>
+
+        <!-- Hidden input for selected datetime -->
+        <input type="hidden" name="scheduled_at" id="selectedDateTime">
     </form>
 </div>
+
+@if($errors->any())
+<div class="reschedule-alert reschedule-alert-danger">
+    <ul class="mb-0">
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentYear = new Date().getFullYear();
+    let currentMonth = new Date().getMonth();
+    let selectedDate = null;
+    let selectedTime = null;
+    
+    const monthNames = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    
+    // Check if a date+time is within 6 hours from now
+    function isWithinSixHours(date, time) {
+        const [hours, minutes] = time.split(':').map(Number);
+        const dateTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes);
+        const now = new Date();
+        const sixHoursFromNow = new Date(now.getTime() + 6 * 60 * 60 * 1000);
+        return dateTime < sixHoursFromNow;
+    }
+    
+    // Check if entire day is disabled (all time slots are within 6 hours)
+    function isDayCompletelyDisabled(date) {
+        const timeSlots = [
+            '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+            '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', 
+            '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', 
+            '19:00', '19:30'
+        ];
+        
+        return timeSlots.every(time => isWithinSixHours(date, time));
+    }
+    
+    // Calendar functionality
+    function generateCalendar(year, month) {
+        const calendar = document.getElementById('calendar');
+        const monthYear = document.getElementById('monthYear');
+        
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const daysInMonth = lastDay.getDate();
+        const startingDayOfWeek = firstDay.getDay();
+        
+        monthYear.textContent = `${monthNames[month]} ${year}`;
+        
+        // Clear calendar
+        calendar.innerHTML = '';
+        
+        // Day headers
+        const dayHeaders = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        dayHeaders.forEach(day => {
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'calendar-day-header';
+            dayHeader.textContent = day;
+            calendar.appendChild(dayHeader);
+        });
+        
+        // Empty cells for days before month starts
+        for (let i = 0; i < startingDayOfWeek; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'calendar-day other-month';
+            calendar.appendChild(emptyDay);
+        }
+        
+        // Days of the month
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = day;
+            
+            const cellDate = new Date(year, month, day);
+            cellDate.setHours(0, 0, 0, 0);
+            
+            // Highlight today
+            if (cellDate.getTime() === today.getTime()) {
+                dayElement.classList.add('today');
+            }
+            
+            // Check if date is in the past
+            if (cellDate < today) {
+                dayElement.classList.add('other-month');
+            } 
+            // Check if all time slots for this day are disabled
+            else if (isDayCompletelyDisabled(cellDate)) {
+                dayElement.classList.add('disabled');
+                dayElement.title = 'Semua slot waktu di tanggal ini tidak dapat dipilih (kurang dari 6 jam)';
+            } 
+            // Date is selectable
+            else {
+                dayElement.addEventListener('click', function() {
+                    // Remove previous selection
+                    document.querySelectorAll('.calendar-day.selected').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    
+                    // Select this day
+                    dayElement.classList.add('selected');
+                    selectedDate = new Date(year, month, day);
+                    
+                    // Reset time selection
+                    selectedTime = null;
+                    document.getElementById('confirmationSection').style.display = 'none';
+                    document.getElementById('confirmBtn').disabled = true;
+                    
+                    // Show time slots
+                    generateTimeSlots();
+                    document.getElementById('timeSlotsContainer').style.display = 'block';
+                });
+            }
+            
+            calendar.appendChild(dayElement);
+        }
+    }
+    
+    // Generate time slots
+    function generateTimeSlots() {
+        const allTimeSlots = document.getElementById('allTimeSlots');
+        
+        // Clear existing slots
+        allTimeSlots.innerHTML = '';
+        
+        // All available time slots
+        const timeSlots = [
+            '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+            '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', 
+            '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', 
+            '19:00', '19:30'
+        ];
+        
+        timeSlots.forEach(time => {
+            const slot = document.createElement('div');
+            slot.className = 'time-slot';
+            slot.textContent = time;
+            
+            // Check if this time slot is within 6 hours
+            if (isWithinSixHours(selectedDate, time)) {
+                slot.classList.add('disabled');
+                slot.title = 'Waktu ini tidak dapat dipilih (kurang dari 6 jam)';
+                slot.addEventListener('click', function() {
+                    alert('Maaf, Anda tidak dapat memilih waktu ini karena kurang dari 6 jam dari sekarang. Silakan pilih waktu yang lebih dari 6 jam ke depan.');
+                });
+            } else {
+                slot.addEventListener('click', function() {
+                    // Remove previous selection
+                    document.querySelectorAll('.time-slot.selected').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    
+                    // Select this slot
+                    slot.classList.add('selected');
+                    selectedTime = time;
+                    
+                    // Update confirmation and enable button
+                    updateConfirmation();
+                });
+            }
+            
+            allTimeSlots.appendChild(slot);
+        });
+    }
+    
+    // Update confirmation section
+    function updateConfirmation() {
+        if (selectedDate && selectedTime) {
+            const confirmDate = document.getElementById('confirmDate');
+            const confirmTime = document.getElementById('confirmTime');
+            const confirmBtn = document.getElementById('confirmBtn');
+            const confirmationSection = document.getElementById('confirmationSection');
+            const selectedDateTime = document.getElementById('selectedDateTime');
+            
+            // Format date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            confirmDate.textContent = selectedDate.toLocaleDateString('id-ID', options);
+            confirmTime.textContent = selectedTime + ' WIB';
+            
+            // Set hidden input value
+            const dateTimeStr = selectedDate.getFullYear() + '-' + 
+                String(selectedDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                String(selectedDate.getDate()).padStart(2, '0') + ' ' + selectedTime + ':00';
+            selectedDateTime.value = dateTimeStr;
+            
+            // Show confirmation section and enable button
+            confirmationSection.style.display = 'block';
+            confirmBtn.disabled = false;
+         
+            // Update progress steps
+            document.querySelectorAll('.step-circle')[1].classList.remove('active');
+            document.querySelectorAll('.step-circle')[1].classList.add('completed');
+            document.querySelectorAll('.step-circle')[1].innerHTML = '✓';
+            document.querySelectorAll('.step-circle')[2].classList.add('active');
+            document.querySelectorAll('.step-connector')[1].classList.add('completed');
+        }
+    }
+    
+    // Navigation buttons
+    document.getElementById('prevMonth').addEventListener('click', function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        generateCalendar(currentYear, currentMonth);
+        
+        // Hide time slots when changing month
+        document.getElementById('timeSlotsContainer').style.display = 'none';
+        document.getElementById('confirmationSection').style.display = 'none';
+        document.getElementById('confirmBtn').disabled = true;
+        selectedDate = null;
+        selectedTime = null;
+    });
+    
+    document.getElementById('nextMonth').addEventListener('click', function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        generateCalendar(currentYear, currentMonth);
+        
+        // Hide time slots when changing month
+        document.getElementById('timeSlotsContainer').style.display = 'none';
+        document.getElementById('confirmationSection').style.display = 'none';
+        document.getElementById('confirmBtn').disabled = true;
+        selectedDate = null;
+        selectedTime = null;
+    });
+    
+    // Initialize calendar
+    generateCalendar(currentYear, currentMonth);
+});
+</script>
 @endsection

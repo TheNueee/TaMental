@@ -38,6 +38,42 @@
             padding-top: 0;
         }
 
+        /* Background  */
+
+
+
+        .bg-auth {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, 
+                rgba(244, 162, 97, 0.1) 0%, 
+                rgba(231, 111, 81, 0.15) 25%, 
+                rgba(244, 162, 97, 0.08) 50%, 
+                rgba(231, 111, 81, 0.12) 75%, 
+                rgba(244, 162, 97, 0.1) 100%);
+            backdrop-filter: blur(0px);
+            z-index: -1;
+        }
+
+        .bg-professional {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, 
+                rgba(244, 162, 97, 0.04) 0%, 
+                rgba(231, 111, 81, 0.06) 25%, 
+                rgba(244, 162, 97, 0.03) 50%, 
+                rgba(231, 111, 81, 0.05) 75%, 
+                rgba(244, 162, 97, 0.04) 100%);
+            backdrop-filter: blur(0px);
+            z-index: -1;
+        }
+
         /* Navbar Styles */
         .custom-navbar {
             background: rgba(255, 255, 255, 0.95);
@@ -59,7 +95,7 @@
         .navbar-brand {
             font-weight: 600;
             font-size: 1.25rem;
-            color: var(--text-dark) !important;
+            color: var(--primary-orange) !important;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -166,9 +202,646 @@
         }
 
         .btn-outline-cta:hover {
-        background-color: var(--primary-orange);
-        color: white;
+            background-color: var(--primary-orange);
+            color: white;
+        }
+
+        .btn-cta3 {
+            background-color: #ffffff;
+            border: 2px solid var(--secondary-orange);
+            border-radius: var(--border-radius-full);
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--secondary-orange) !important;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            min-width: 160px;
+            white-space: nowrap;
+        }
+
+        .btn-cta3:hover {
+            background-color: var(--secondary-orange);
+            color: white !important;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px -5px rgba(231, 111, 81, 0.5);
+            border-color: var(--secondary-orange);
+        }
+
+        .btn-cta3:active {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Landing Page */
+    /* Landing Page Styles */
+
+/* Reset untuk memastikan full width */
+.landing-features,
+.landing-how-it-works,
+.landing-benefits,
+.landing-cta {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
+
+/* Features Section */
+.landing-features {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.landing-features .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.landing-section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.landing-section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.landing-section-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.landing-feature-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    padding: 40px 30px;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.landing-feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.landing-feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+.landing-feature-card:hover::before {
+    transform: scaleX(1);
+}
+
+.landing-feature-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: white;
+}
+
+.landing-feature-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.landing-feature-description {
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+}
+
+.landing-feature-highlight {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.landing-highlight-tag {
+    background: rgba(244, 162, 97, 0.1);
+    color: var(--primary-orange);
+    padding: 6px 12px;
+    border-radius: var(--border-radius-full);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* How It Works Section */
+.landing-how-it-works {
+    padding: 80px 0;
+    background: white;
+}
+
+.landing-how-it-works .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.landing-steps-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.landing-step {
+    flex: 1;
+    max-width: 280px;
+    text-align: center;
+    position: relative;
+}
+
+.landing-step-number {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 8px 20px rgba(244, 162, 97, 0.3);
+}
+
+.landing-step-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.landing-step-description {
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.landing-step-arrow {
+    color: var(--primary-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Benefits Section */
+.landing-benefits {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.landing-benefits .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.landing-benefits-content {
+    padding-right: 30px;
+}
+
+.landing-benefits-list {
+    margin-top: 40px;
+}
+
+.landing-benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.landing-benefit-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.landing-benefit-text h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.landing-benefit-text p {
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.landing-benefits-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-visual-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    padding: 0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+}
+
+.landing-visual-header {
+    background: #f8f9fa;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.landing-visual-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.landing-visual-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ddd;
+}
+
+.landing-visual-dots span:first-child {
+    background: #ff5f57;
+}
+
+.landing-visual-dots span:nth-child(2) {
+    background: #ffbd2e;
+}
+
+.landing-visual-dots span:last-child {
+    background: #28ca42;
+}
+
+.landing-visual-content {
+    padding: 40px 30px;
+}
+
+.landing-visual-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.landing-stat-item {
+    text-align: center;
+}
+
+.landing-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+}
+
+.landing-stat-label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* CTA Section */
+.landing-cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+}
+
+.landing-cta .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.landing-cta-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    padding: 50px 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.landing-cta-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.landing-cta-description {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.landing-cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-cta3 {
+    background: transparent;
+    border: 2px solid var(--primary-orange);
+    border-radius: var(--border-radius-full);
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-orange) !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    white-space: nowrap;
+}
+
+.btn-cta3:hover {
+    background: var(--primary-orange);
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(244, 162, 97, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .landing-section-title {
+        font-size: 2rem;
+    }
+    
+    .landing-section-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .landing-features,
+    .landing-how-it-works,
+    .landing-benefits,
+    .landing-cta {
+        padding: 60px 0;
+    }
+    
+    .landing-feature-card {
+        padding: 30px 20px;
+    }
+    
+    .landing-section-header {
+        margin-bottom: 40px;
+    }
+    
+    .landing-steps-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .landing-step-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .landing-benefits-content {
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+    
+    .landing-cta-card {
+        padding: 40px 20px;
+        text-align: center;
+    }
+    
+    .landing-cta-title {
+        font-size: 1.8rem;
+    }
+    
+    .landing-cta-buttons {
+        margin-top: 30px;
+        align-items: center;
+    }
+    
+    /* Mobile padding adjustment */
+    .landing-features .container,
+    .landing-how-it-works .container,
+    .landing-benefits .container,
+    .landing-cta .container {
+        padding: 0 20px;
+    }
+}
+
+/* Animation improvements */
+@keyframes landing-float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.landing-feature-icon {
+    animation: landing-float 6s ease-in-out infinite;
+}
+
+.landing-feature-card:nth-child(2) .landing-feature-icon {
+    animation-delay: -2s;
+}
+
+.landing-feature-card:nth-child(3) .landing-feature-icon {
+    animation-delay: -4s;
+}
+
+/* Extra fix untuk memastikan tidak ada overflow horizontal */
+body {
+    overflow-x: hidden;
+}
+
+.landing-features,
+.landing-how-it-works,
+.landing-benefits,
+.landing-cta {
+    overflow-x: hidden;
+}
+
+/* CTA Section */
+.landing-cta {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+}
+
+.landing-cta-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    padding: 50px 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.landing-cta-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.landing-cta-description {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.landing-cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-cta3 {
+    background: transparent;
+    border: 2px solid var(--primary-orange);
+    border-radius: var(--border-radius-full);
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-orange) !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    min-width: 160px;
+    white-space: nowrap;
+}
+
+.btn-cta3:hover {
+    background: var(--primary-orange);
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(244, 162, 97, 0.3);
+}
+
+@media (max-width: 768px) {
+    .landing-cta-card {
+        padding: 40px 20px;
+        text-align: center;
+    }
+    
+    .landing-cta-title {
+        font-size: 1.8rem;
+    }
+    
+    .landing-cta-buttons {
+        margin-top: 30px;
+        align-items: center;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .landing-section-title {
+        font-size: 2rem;
+    }
+    
+    .landing-section-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .landing-features,
+    .landing-how-it-works,
+    .landing-benefits,
+    .landing-cta {
+        padding: 60px 0;
+    }
+    
+    .landing-feature-card {
+        padding: 30px 20px;
+    }
+    
+    .landing-section-header {
+        margin-bottom: 40px;
+    }
+}
+
+/* Animation improvements */
+@keyframes landing-float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.landing-feature-icon {
+    animation: landing-float 6s ease-in-out infinite;
+}
+
+.landing-feature-card:nth-child(2) .landing-feature-icon {
+    animation-delay: -2s;
+}
+
+.landing-feature-card:nth-child(3) .landing-feature-icon {
+    animation-delay: -4s;
+}
+
 
         /* Login Link */
         .btn-login {
@@ -840,6 +1513,524 @@
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(69, 160, 73, 0.1));
             color: #2e7d32;
             border-left: 5px solid #4CAF50;
+        }
+
+        /* Tentang Kami  */
+        .tentangkami-about-page {
+            line-height: 1.6;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .tentangkami-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tentangkami-section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .tentangkami-section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .tentangkami-section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .tentangkami-hero-about {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 8rem ;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .tentangkami-hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 3rem;
+        }
+
+        .tentangkami-hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .tentangkami-hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tentangkami-hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .tentangkami-stat-item {
+            text-align: center;
+        }
+
+        .tentangkami-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .tentangkami-stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .tentangkami-mission-vision {
+            padding: 6rem 0;
+            background: white;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .tentangkami-mv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .tentangkami-mv-card {
+            padding: 3rem 2.5rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tentangkami-vision-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tentangkami-mission-card {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+            color: white;
+        }
+
+        .tentangkami-mv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tentangkami-mv-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        .tentangkami-mv-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tentangkami-mv-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .tentangkami-mv-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .tentangkami-about-platform {
+            padding: 6rem 0;
+            background: #f8f9fa;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .tentangkami-platform-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tentangkami-platform-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .tentangkami-platform-desc {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .tentangkami-features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .tentangkami-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .tentangkami-feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tentangkami-feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .tentangkami-feature-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .tentangkami-feature-text h4 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .tentangkami-feature-text p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .tentangkami-team-section {
+            padding: 6rem 0;
+            background: white;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .tentangkami-team-roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tentangkami-role-card {
+            padding: 2.5rem 2rem;
+            background: white;
+            border: 2px solid var(--border-light);
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tentangkami-role-card:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(244, 162, 97, 0.15);
+        }
+
+        .tentangkami-role-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+        }
+
+        .tentangkami-role-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .tentangkami-role-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .tentangkami-role-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .tentangkami-role-stats {
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .tentangkami-role-stats .tentangkami-stat {
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-full);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .tentangkami-values-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .tentangkami-values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tentangkami-value-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-orange);
+        }
+
+        .tentangkami-value-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tentangkami-value-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .tentangkami-value-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .tentangkami-value-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .tentangkami-cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-orange) 100%);
+            color: white;
+            text-align: center;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .tentangkami-cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .tentangkami-cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .tentangkami-cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tentangkami-btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            border-radius: var(--border-radius-full);
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white !important;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            min-width: 160px;
+            white-space: nowrap;
+        }
+
+        .tentangkami-btn-outline:hover {
+            background: white;
+            color: var(--primary-orange) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+        }
+
+        .tentangkami-btn-outline:active {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .tentangkami-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .tentangkami-hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .tentangkami-hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .tentangkami-section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .tentangkami-section-header p {
+                font-size: 1rem;
+            }
+            
+            .tentangkami-mv-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .tentangkami-mv-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .tentangkami-features-list {
+                gap: 1.5rem;
+            }
+            
+            .tentangkami-feature-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            
+            .tentangkami-values-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .tentangkami-cta-content h2 {
+                font-size: 2rem;
+            }
+            
+            .tentangkami-cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn-cta2,
+            .tentangkami-btn-outline {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tentangkami-container {
+                padding: 0 15px;
+            }
+            
+            .tentangkami-hero-about {
+                padding: 4rem 0;
+            }
+            
+            .tentangkami-hero-title {
+                font-size: 2rem;
+            }
+            
+            .tentangkami-section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .tentangkami-platform-text h2 {
+                font-size: 2rem;
+            }
+            
+            .tentangkami-stat-number {
+                font-size: 2rem;
+            }
         }
 
         /* Reschedule */
@@ -1666,7 +2857,7 @@
         .reschedule-action-buttons {
             display: flex;
             gap: 15px;
-            justify-content: flex-end;
+            justify-content: space-between;
             padding: 25px;
             background: #f8f9fa;
         }
@@ -2826,13 +4017,13 @@
             border-radius: var(--border-radius-lg);
         }
 
-        .professional-avatar {
+        /* .professional-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--primary-orange);
-        }
+        } */
 
         .professional-details h3 {
             color: var(--text-dark);
@@ -3480,9 +4671,7 @@
     <header>
         <nav class="navbar navbar-expand-md fixed-top custom-navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo-kamidengar.png') }}" alt="KamiDengar" class="navbar-logo">
-                </a>
+                <a class="navbar-brand" href="{{ url('/') }}"> KamiDengar</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -3492,26 +4681,26 @@
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::is('disclaimer') ? 'active' : '' }}" href="{{ route('disclaimer') }}">Pengujian</a>
+                                <a class="nav-link {{ Request::is('disclaimer') ? 'active' : '' }}" href="{{ route('disclaimer') }}">Pengukuran</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::is('daftarprofesional') ? 'active' : '' }}" href="{{ route('daftarprofesional')}}">Konsultasi</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::is('tentang-kami') ? 'active' : '' }}" href="#">Tentang Kami</a>
+                                <a class="nav-link {{ Request::is('tentangkami') ? 'active' : '' }}" href="{{ route('tentangkami')}}">Tentang Kami</a>
                             </li>
                         @else
                             @php $role = Auth::user()->role; @endphp
 
                             @if($role === 'client')
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('client/pengujian/riwayat') ? 'active' : '' }}" href="{{ route('client.pengujian.riwayat') }}">Pengujian</a>
+                                    <a class="nav-link {{ Request::is('client/pengujian/riwayat') ? 'active' : '' }}" href="{{ route('client.pengujian.riwayat') }}">Pengukuran</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('client/konsultasi') ? 'active' : '' }}" href="{{ route('client.konsultasi.index') }}">Konsultasi</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Pandora Box</a>
+                                    <a class="nav-link {{ Request::is('tentangkami') ? 'active' : '' }}" href="{{ route('tentangkami')}}">Tentang Kami</a>
                                 </li>
                              @elseif($role === 'professional')
                                 <li class="nav-item">
@@ -3554,10 +4743,7 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-0 text-muted">&copy; {{ config('app.name') }} {{ date('Y') }}</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="mb-0 text-muted">Built with Laravel</p>
+                    <p class="mb-0 text-muted">&copy; KamiDengar {{ date('Y') }}</p>
                 </div>
             </div>
         </div>

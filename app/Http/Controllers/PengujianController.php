@@ -53,7 +53,7 @@ class PengujianController extends Controller
                 ]);
 
                 return redirect()->route('hasil', ['id' => $pengujian->id])
-                    ->with('success', 'Pengujian berhasil disimpan.');
+                    ->with('success', 'Pengukuran berhasil disimpan.');
             }
         }
 
@@ -77,7 +77,7 @@ class PengujianController extends Controller
 
             if (!$hasil) {
                 return redirect()->route('pengujiandass21')
-                    ->with('error', 'Hasil tidak tersedia. Silakan lakukan pengujian terlebih dahulu.');
+                    ->with('error', 'Hasil tidak tersedia. Silakan lakukan pengukuran terlebih dahulu.');
             }
 
             session()->forget('hasil_guest');
@@ -111,7 +111,7 @@ class PengujianController extends Controller
 
         if (!$id) {
             return redirect()->route('pengujiandass21')
-                ->with('error', 'ID pengujian tidak valid.');
+                ->with('error', 'ID pengukuran tidak valid.');
         }
 
         $model = PengujianDass21::where('id', $id)
@@ -120,7 +120,7 @@ class PengujianController extends Controller
 
         if (!$model) {
             return redirect()->route('client.pengujian.riwayat')
-                ->with('error', 'Data hasil pengujian tidak ditemukan atau tidak diizinkan.');
+                ->with('error', 'Data hasil pengukuran tidak ditemukan atau tidak diizinkan.');
         }
 
         $kategori_depresi = $model->kategori_depresi;
@@ -196,7 +196,7 @@ class PengujianController extends Controller
         $model->delete();
 
         return redirect()->route('client.pengujian.riwayat')
-            ->with('success', 'Riwayat pengujian berhasil dihapus.');
+            ->with('success', 'Riwayat pengukuran berhasil dihapus.');
     }
 
     public function getPertanyaan(): array

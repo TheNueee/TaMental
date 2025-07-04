@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pengujian DASS-21')
+@section('title', 'Pengukuran DASS-21')
 
 @section('content')
 <style>
@@ -34,7 +34,6 @@
         align-items: center;
         justify-content: center;
         padding: 2rem 1rem;
-        background: linear-gradient(135deg, rgba(244, 162, 97, 0.03) 0%, rgba(231, 111, 81, 0.03) 100%);
     }
 
     .question-wrapper {
@@ -353,11 +352,11 @@
                 <div class="completion-icon">🎉</div>
                 <div class="completion-title">Selesai!</div>
                 <div class="completion-subtitle">
-                    Terima kasih telah menyelesaikan pengujian DASS-21.<br>
+                    Terima kasih telah menyelesaikan Pengukuran DASS-21.<br>
                     Klik tombol di bawah untuk melihat hasil Anda.
                 </div>
                 <button class="btn-cta2" onclick="submitAssessment()">
-                    Lihat Hasil Pengujian
+                    Lihat Hasil Pengukuran
                 </button>
             </div>
         </div>
@@ -515,7 +514,7 @@ function showCompletionScreen() {
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     progressBar.style.width = '100%';
-    progressText.textContent = 'Pengujian Selesai ✓';
+    progressText.textContent = 'Pengukuran Selesai ✓';
 }
 
 function submitAssessment() {

@@ -3,6 +3,7 @@
 @section('title', 'Detail Klien - ' . $klien->name)
 
 @section('content')
+<div class="bg-professional"></div>
 <div class="container py-4">
     <!-- Back Button -->
     <a href="{{ route('professional.klien.index') }}" class="back-btn">
@@ -78,7 +79,7 @@
             @else
                 <div class="empty-notes">
                     <i class="fas fa-chart-line fa-2x mb-3 text-muted"></i>
-                    <p>Belum ada data pengujian dari klien ini.</p>
+                    <p>Belum ada data pengukuran dari klien ini.</p>
                     <small class="text-muted">Data akan muncul setelah klien melakukan tes kondisi mental.</small>
                 </div>
             @endif
@@ -126,14 +127,14 @@
                 <div class="mt-3">
                     <small class="text-muted">
                         <i class="fas fa-info-circle"></i>
-                        Berdasarkan {{ $pengujian7HariTerakhir->count() }} pengujian dalam 7 hari terakhir
+                        Berdasarkan {{ $pengujian7HariTerakhir->count() }} Pengukuran DASS-21 dalam 7 hari terakhir
                     </small>
                 </div>
             @else
                 <div class="empty-notes">
                     <i class="fas fa-calendar-times fa-2x mb-3 text-muted"></i>
-                    <p>Belum ada pengujian dalam 7 hari terakhir.</p>
-                    <small class="text-muted">Rata-rata akan ditampilkan setelah ada data pengujian.</small>
+                    <p>Belum ada pengukuran dalam 7 hari terakhir.</p>
+                    <small class="text-muted">Rata-rata akan ditampilkan setelah ada data pengukuran.</small>
                 </div>
             @endif
         </div>

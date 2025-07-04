@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Hasil Tes Kesehatan Mental')
+@section('title', 'Hasil Pengukuran DASS-21')
 
 @section('content')
 <div class="container">
@@ -12,7 +12,7 @@
                     <div class="mb-3">
                         <i class="fas fa-heart text-white" style="font-size: 3rem; opacity: 0.9;"></i>
                     </div>
-                    <h2 class="text-white mb-2 fw-bold">Hasil Tes DASS-21 Kamu</h2>
+                    <h2 class="text-white mb-2 fw-bold">Hasil Pengukuran DASS-21 Kamu</h2>
                     <p class="text-white mb-3" style="opacity: 0.9; font-size: 1.1rem;">
                         Selamat! Kamu telah menyelesaikan salah satu langkah dini dalam mengetahui perjalanan kesehatan mentalmu.
                     </p>
@@ -190,7 +190,7 @@
                         </div>
                         <h5 class="fw-semibold mb-2" style="color: var(--text-dark);">Catatan Penting:</h5>
                         <p class="text-muted mb-4" style="font-size: 1rem;">
-                            Hasil ini tidak tersimpan karena Anda belum login. Daftar akun untuk menyimpan riwayat tes Anda.
+                            Hasil ini tidak tersimpan karena Anda belum login. Daftar akun untuk menyimpan riwayat pengukuran Anda.
                         </p>
                         
                         <div class="row g-3 justify-content-center">
@@ -209,7 +209,7 @@
                             <div class="col-md-4">
                                 <a href="{{ route('pengujiandass21') }}" class="btn btn-outline-secondary rounded-pill w-100" style="padding: 14px 32px; font-size: 1.1rem;">
                                     <i class="fas fa-redo me-2"></i>
-                                    Tes Ulang
+                                    Pengukuran Ulang
                                 </a>
                             </div>
                         </div>
@@ -223,13 +223,13 @@
                             <div class="col-md-4">
                                 <a href="{{ route('client.pengujian.riwayat') }}" class="btn-cta2 w-100">
                                     <i class="fas fa-history me-2"></i>
-                                    Lihat Riwayat Tes
+                                    Lihat Riwayat Pengukuran
                                 </a>
                             </div>
                             <div class="col-md-4">
                                 <a href="{{ route('pengujiandass21') }}" class="btn btn-outline-secondary rounded-pill w-100" style="padding: 14px 32px; font-size: 1.1rem;">
                                     <i class="fas fa-redo me-2"></i>
-                                    Tes Ulang
+                                    Pengukuran Ulang
                                 </a>
                             </div>
                         </div>

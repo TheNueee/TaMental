@@ -106,54 +106,80 @@ function renderCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const today = new Date();
-
+    
     const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     document.getElementById('current-month-year').textContent = `${monthNames[month]} ${year}`;
-
+    
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const startingDayOfWeek = firstDay.getDay();
     const daysInMonth = lastDay.getDate();
     const daysInPrevMonth = new Date(year, month, 0).getDate();
-
+    
     const dayHeaders = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
     let calendarHTML = dayHeaders.map(d => `<div class="client-calendar-header-cell">${d}</div>`).join('');
-
+    
+    // Previous month days
     for (let i = startingDayOfWeek - 1; i >= 0; i--) {
         const day = daysInPrevMonth - i;
         calendarHTML += `<div class="client-calendar-day other-month"><div class="client-day-number">${day}</div></div>`;
     }
-
+    
+    // Current month days
     for (let day = 1; day <= daysInMonth; day++) {
         const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
+        
         const dayConsults = consultations.filter(c => {
+            // PERBAIKAN: Cara lebih aman untuk handle tanggal
             const d = new Date(c.scheduled_at);
-            return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day;
+            // Koreksi timezone dengan mengurangi offset
+            const correctedDate = new Date(d.getTime() - (7 * 60 * 60 * 1000));
+            return correctedDate.getFullYear() === year && correctedDate.getMonth() === month && correctedDate.getDate() === day;
         });
-
+        
         let eventsHTML = '';
         dayConsults.forEach(consultation => {
-            const time = new Date(consultation.scheduled_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-            const professionalName = consultation.professional.name.length > 8 ? consultation.professional.name.substring(0, 8) + '...' : consultation.professional.name;
+            // PERBAIKAN: Format waktu dengan koreksi timezone
+            const originalDate = new Date(consultation.scheduled_at);
+            const correctedTime = new Date(originalDate.getTime() - (7 * 60 * 60 * 1000));
+            const time = String(correctedTime.getHours()).padStart(2, '0') + ':' + String(correctedTime.getMinutes()).padStart(2, '0');
+            
+            const professionalName = consultation.professional.name.length > 8 ? 
+                consultation.professional.name.substring(0, 8) + '...' : 
+                consultation.professional.name;
+            
             eventsHTML += `<div class="client-consultation-event ${consultation.status}" onclick="showConsultationDetail(${consultation.id})" title="${consultation.professional.name} - ${consultation.layanan.name} (${time})">${time} ${professionalName}</div>`;
         });
-
+        
         calendarHTML += `<div class="client-calendar-day ${isToday ? 'today' : ''}"><div class="client-day-number">${day}</div>${eventsHTML}</div>`;
     }
-
+    
+    // Next month days
     const totalCells = Math.ceil((startingDayOfWeek + daysInMonth) / 7) * 7;
     for (let i = 1; i <= totalCells - startingDayOfWeek - daysInMonth; i++) {
         calendarHTML += `<div class="client-calendar-day other-month"><div class="client-day-number">${i}</div></div>`;
     }
-
+    
     document.getElementById('calendar-grid').innerHTML = calendarHTML;
 }
 
 function renderConsultations() {
     const now = new Date();
-    const upcoming = consultations.filter(c => new Date(c.scheduled_at) >= now).sort((a, b) => new Date(a.scheduled_at) - new Date(b.scheduled_at));
-
+    const upcoming = consultations.filter(c => {
+        // PERBAIKAN: Cara lebih aman untuk handle waktu
+        const originalDate = new Date(c.scheduled_at);
+        const correctedDate = new Date(originalDate.getTime() - (7 * 60 * 60 * 1000));
+        return correctedDate >= now;
+    }).sort((a, b) => {
+        const dateA = new Date(a.scheduled_at);
+        const dateB = new Date(b.scheduled_at);
+        const correctedA = new Date(dateA.getTime() - (7 * 60 * 60 * 1000));
+        const correctedB = new Date(dateB.getTime() - (7 * 60 * 60 * 1000));
+        return correctedA - correctedB;
+    });
+    
     let html = '';
+    
     if (upcoming.length === 0) {
         html = `<div class="client-empty-state">
             <div class="client-empty-icon">📅</div>
@@ -162,21 +188,33 @@ function renderConsultations() {
         </div>`;
     } else {
         upcoming.forEach(c => {
-            const d = new Date(c.scheduled_at);
-            const dateStr = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-            const timeStr = d.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-
+            // PERBAIKAN: Format tanggal dan waktu dengan manual formatting
+            const originalDate = new Date(c.scheduled_at);
+            const d = new Date(originalDate.getTime() - (7 * 60 * 60 * 1000));
+            
+            // Format tanggal manual
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            const dateStr = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+            
+            // Format waktu manual
+            const timeStr = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+            
             const statusClass = `client-status-${c.status}`;
-            const statusText = { scheduled: 'Terjadwal', pending: 'Menunggu', completed: 'Selesai', cancelled: 'Dibatalkan' }[c.status];
-
+            const statusText = { 
+                scheduled: 'Terjadwal', 
+                pending: 'Menunggu', 
+                completed: 'Selesai', 
+                cancelled: 'Dibatalkan' 
+            }[c.status];
+            
             let actionButtons = '';
             if (c.status === 'scheduled' || c.status === 'pending') {
-                 const canModify = c.can_modify;
+                const canModify = c.can_modify;
                 actionButtons = `
                     <div class="client-action-buttons">
                         ${c.meeting_link ? `<a href="${c.meeting_link}" target="_blank" class="client-action-btn client-btn-join">🚀 Join</a>` : ''}
                         <a href="/konsultasi/detail/${c.id}" class="client-action-btn client-btn-detail">🔍 Detail</a>
-                         ${canModify ? `<a href="/konsultasi/riwayat/edit/${c.id}" class="client-action-btn client-btn-reschedule">📝 Reschedule</a>` : ''}
+                        ${canModify ? `<a href="/konsultasi/riwayat/edit/${c.id}" class="client-action-btn client-btn-reschedule">📝 Reschedule</a>` : ''}
                         ${canModify ? `<button onclick="cancelConsultation(${c.id})" class="client-action-btn client-btn-cancel">❌ Batal</button>` : ''}
                     </div>
                 `;
@@ -187,7 +225,7 @@ function renderConsultations() {
                     </div>
                 `;
             }
-
+            
             html += `<div class="client-consultation-card" onclick="showConsultationDetail(${c.id})">
                 <div class="client-consultation-header">
                     <div>
@@ -203,7 +241,7 @@ function renderConsultations() {
             </div>`;
         });
     }
-
+    
     document.getElementById('consultations-list').innerHTML = html;
 }
 
@@ -226,17 +264,18 @@ function cancelConsultation(id) {
     if (confirm('Apakah Anda yakin ingin membatalkan konsultasi ini?')) {
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = `/konsultasi/delete/${id}`;
+        form.action = `/konsultasi/delete/${c.id}`;
+        
         const csrf = document.createElement('input');
         csrf.type = 'hidden';
         csrf.name = '_token';
         csrf.value = '{{ csrf_token() }}';
-
+        
         const method = document.createElement('input');
         method.type = 'hidden';
         method.name = '_method';
         method.value = 'DELETE';
-
+        
         form.appendChild(csrf);
         form.appendChild(method);
         document.body.appendChild(form);

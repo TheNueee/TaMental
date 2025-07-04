@@ -67,9 +67,9 @@ class WebAuthController extends Controller
 
         switch ($role) {
             case 'client':
-                return redirect()->route('client.dashboard');
+                return redirect()->route('client.pengujian.riwayat');
             case 'professional':
-                return redirect()->route('professional.dashboard');
+                return redirect()->route('professional.konsultasi.index');
             case 'admin':
                 return redirect()->route('admin.dashboard');
             default:

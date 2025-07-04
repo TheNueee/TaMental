@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Pengujian DASS-21')
+@section('title', 'Detail Pengukuran DASS-21')
 
 @section('content')
 <div class="detail-container mb-4">
     <!-- Header -->
     <div class="detail-header">
-        <h1 class="detail-title">Detail Pengujian DASS-21</h1>
-        <p class="detail-subtitle">Hasil lengkap pengujian depresi, kecemasan, dan stres</p>
+        <h1 class="detail-title">Detail Pengukuran DASS-21</h1>
+        <p class="detail-subtitle">Hasil lengkap pengukuran depresi, kecemasan, dan stres</p>
     </div>
 
     <!-- Basic Info -->
     <div class="detail-info-grid">
         <div class="detail-info-card">
-            <div class="detail-info-label">Tanggal Pengujian</div>
+            <div class="detail-info-label">Tanggal Pengukuran</div>
             <div class="detail-info-value">{{ $pengujian->created_at->format('d M Y') }}</div>
         </div>
         <div class="detail-info-card">
-            <div class="detail-info-label">Waktu Pengujian</div>
+            <div class="detail-info-label">Waktu Pengukuran</div>
             <div class="detail-info-value">{{ $pengujian->created_at->format('H:i') }} WIB</div>
         </div>
     </div>

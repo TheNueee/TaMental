@@ -3,6 +3,7 @@
 @section('title', 'Masuk ke Akun Anda')
 
 @section('content')
+<div class="bg-auth"></div>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="login-container w-100" style="max-width: 420px; background-color: white; padding: 30px; border-radius: 12px; box-shadow: var(--shadow-md);">
         <h2 class="text-center mb-4" style="color: var(--primary-orange); font-weight: 600;">Masuk ke Akun</h2>

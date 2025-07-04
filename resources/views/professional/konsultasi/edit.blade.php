@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="reschedule-container">
+<div class="bg-professional"></div>
     <!-- Header -->
     <div class="reschedule-header">
         <h2>📅 Penggantian Jadwal Konsultasi</h2>
@@ -27,7 +28,7 @@
         </div>
     </div>
 
-    <form action="{{ route('client.konsultasi.update', $konsultasi) }}" method="POST" id="rescheduleForm">
+    <form action="{{ route('professional.konsultasi.update', $konsultasi) }}" method="POST" id="rescheduleForm">
         @csrf
         @method('PUT')
         
@@ -153,7 +154,7 @@
 
             <!-- Action Buttons -->
             <div class="reschedule-action-buttons">
-                <a href="{{ route('client.konsultasi.index') }}" class="btn-back">
+                <a href="{{ route('professional.konsultasi.index') }}" class="btn-back">
                     <span>←</span>
                     Kembali
                 </a>

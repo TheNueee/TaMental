@@ -17,6 +17,9 @@ Route::post('/register', [WebAuthController::class, 'register'])->name('register
 Route::get('/login', [WebAuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [WebAuthController::class, 'login'])->name('login');
 Route::post('/logout', [WebAuthController::class, 'logout'])->name('logout');
+Route::get('/tentangkami', function () {
+    return view('tentangkami');
+})->name('tentangkami');
 
 Route::get('/pengujian/disclaimer', [PengujianController::class, 'pengujianDisclaimer'])->name('disclaimer');
 Route::match(['get', 'post'], '/pengujian/dass21', [PengujianController::class, 'pengujianDass21'])->name('pengujiandass21');
@@ -50,6 +53,10 @@ Route::middleware(['auth', 'role:professional'])->group(function () {
     })->name('professional.dashboard');
 
     Route::get('/professional/konsultasi', [ProfessionalController::class, 'myClients'])->name('professional.konsultasi.index');
+    Route::get('/professional/konsultasi/{konsultasi}', [ProfessionalController::class, 'detailKonsultasi'])->name('professional.konsultasi.detail');
+    Route::get('/professional/konsultasi/{konsultasi}/edit', [ProfessionalController::class, 'editKonsultasi'])->name('professional.konsultasi.edit');
+    Route::put('/professional/konsultasi/edit/{konsultasi}', [ProfessionalController::class, 'updateKonsultasi'])->name('professional.konsultasi.update');
+    Route::delete('/professional/konsultasi/{konsultasi}', [ProfessionalController::class, 'destroyKonsultasi'])->name('professional.konsultasi.destroy');
     Route::get('/professional/klien', [ProfessionalController::class, 'daftarKlien'])->name('professional.klien.index');
     Route::get('/professional/klien/{id}', [ProfessionalController::class, 'detailKlien'])->name('professional.klien.detail');
 

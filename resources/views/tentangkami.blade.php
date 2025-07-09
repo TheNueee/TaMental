@@ -10,7 +10,7 @@
             <div class="tentangkami-hero-content">
                 <div class="tentangkami-hero-text">
                     <h1 class="tentangkami-hero-title">Tentang <span class="primarytext">KamiDengar</span></h1>
-                    <p class="tentangkami-hero-subtitle">Platform terpercaya untuk kesehatan mental yang menghubungkan Anda dengan para profesional berpengalaman</p>
+                    <p class="tentangkami-hero-subtitle">Aplikasi ini dirancang untuk membantu Anda mengenali kondisi emosional melalui pengukuran standar (DASS-21), memahami dampak stres, kecemasan, dan depresi, serta terhubung langsung dengan profesional kesehatan mental yang siap mendampingi proses pemulihan dan pertumbuhan Anda.</p>
                 </div>
                 <div class="tentangkami-hero-stats">
                     <div class="tentangkami-stat-item">

@@ -63,15 +63,19 @@
 
                             @if($kategori_depresi == 'Normal')
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Bagus! Tingkat kesedihan Anda dalam batas normal
+                                    Bagus! Saat ini Anda berada dalam kondisi emosional yang sehat
                                 </p>
                             @elseif($kategori_depresi == 'Ringan')
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Ada sedikit tanda kesedihan, tapi masih dapat dikelola dengan baik
+                                     Ada sedikit gejala kesedihan. wajar di masa penuh transisi ini, tetap jaga diri ya
                                 </p>
+                            @elseif($kategori_depresi == 'Sedang')
+                                <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                                    Rasa sedih yang Anda alami cukup signifikan, coba beri ruang untuk memahami diri
+                                </p>        
                             @else
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Mungkin saatnya untuk berbicara dengan seseorang yang dapat membantu
+                                    Perasaan berat itu valid. Yuk pertimbangkan bicara dengan profesional yang siap mendampingi
                                 </p>
                             @endif
                         </div>
@@ -114,15 +118,19 @@
 
                             @if($kategori_kecemasan == 'Normal')
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Hebat! Anda dapat mengelola kekhawatiran dengan baik
+                                    Hebat! Anda mampu menjaga ketenangan di tengah berbagai tantangan
                                 </p>
                             @elseif($kategori_kecemasan == 'Ringan')
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Wajar merasakan kekhawatiran ringan, cobalah teknik relaksasi
+                                    Rasa cemas ringan itu wajar, coba tenangkan diri lewat napas dalam atau journaling
+                                </p>
+                            @elseif($kategori_kecemasan == 'Sedang')
+                                <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                                    Tingkat kecemasan Anda mulai terasa, cobalah identifikasi pemicu dan beri ruang jeda
                                 </p>
                             @else
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Kekhawatiran yang berlebih dapat mengganggu aktivitas harian
+                                    Jika rasa cemas mulai mengganggu, tidak apa-apa untuk mencari dukungan profesional
                                 </p>
                             @endif
                         </div>
@@ -165,15 +173,19 @@
 
                             @if($kategori_stres == 'Normal')
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Bagus! Anda bisa menjaga ketenangan dengan baik
+                                    Bagus! Anda mampu menjaga ketenangan dan mengelola tekanan dengan baik
                                 </p>
                             @elseif($kategori_stres == 'Ringan')
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Ketegangan ringan masih normal, cobalah aktivitas yang menenangkan
+                                    Stres ringan itu hal yang wajar, coba luangkan waktu untuk diri sendiri sejenak
+                                </p>
+                            @elseif($kategori_stres == 'Sedang')
+                                <p class="text-muted mb-0" style="font-size: 0.85rem;">
+                                    Tekanan hidup mungkin mulai terasa,tenangkan diri dengan aktivitas yang Anda nikmati
                                 </p>
                             @else
                                 <p class="text-muted mb-0" style="font-size: 0.85rem;">
-                                    Tingkat ketegangan yang tinggi dapat memengaruhi kesehatan Anda
+                                    Jika tekanan terasa berat, jangan ragu untuk istirahat dan mencari bantuan yang tepat
                                 </p>
                             @endif
                         </div>
@@ -261,7 +273,7 @@
                                 👨‍⚕️ Profesional Terpercaya untuk Anda
                             </h4>
                             <p class="text-muted">
-                                Kami telah memilihkan beberapa ahli kesehatan mental yang tepat untuk membantu Anda
+                               Kami telah mencocokkan Anda dengan profesional kesehatan mental yang siap membantu memahami emosi, relasi, dan tantangan yang sedang Anda alami dalam fase hidup ini.
                             </p>
                         </div>
 
@@ -333,7 +345,7 @@
                             💝 Tips Menjaga Kesehatan Mental
                         </h4>
                         <p class="text-muted">
-                            Hal-hal sederhana yang bisa Anda lakukan untuk merawat diri sendiri
+                            Langkah-langkah sederhana untuk mengenali emosi dan merawat diri di masa transisi
                         </p>
                     </div>
 
@@ -347,7 +359,7 @@
                                 <div>
                                     <h6 class="fw-semibold mb-1">Tidur yang Cukup</h6>
                                     <p class="text-muted mb-0" style="font-size: 0.9rem;">
-                                        Tidur 7-8 jam setiap malam untuk menjaga keseimbangan emosi
+                                        Tidur 7–8 jam setiap malam bantu stabilkan emosi dan kejernihan berpikir
                                     </p>
                                 </div>
                             </div>
@@ -362,7 +374,7 @@
                                 <div>
                                     <h6 class="fw-semibold mb-1">Olahraga Teratur</h6>
                                     <p class="text-muted mb-0" style="font-size: 0.9rem;">
-                                        Minimal 30 menit aktivitas fisik untuk melepas endorfin
+                                        Lakukan aktivitas fisik minimal 30 menit untuk membantu tubuh melepas stres secara alami
                                     </p>
                                 </div>
                             </div>
@@ -377,7 +389,7 @@
                                 <div>
                                     <h6 class="fw-semibold mb-1">Berkomunikasi</h6>
                                     <p class="text-muted mb-0" style="font-size: 0.9rem;">
-                                        Berbagi cerita dengan orang terpercaya atau keluarga
+                                        Ceritakan perasaanmu pada orang yang dipercaya agar tidak merasa sendiri
                                     </p>
                                 </div>
                             </div>
@@ -392,7 +404,7 @@
                                 <div>
                                     <h6 class="fw-semibold mb-1">Relaksasi</h6>
                                     <p class="text-muted mb-0" style="font-size: 0.9rem;">
-                                        Luangkan waktu untuk meditasi, yoga, atau hobi favorit
+                                        Luangkan waktu untuk hal-hal yang kamu suka: meditasi, journaling, atau aktivitas yang menenangkan
                                     </p>
                                 </div>
                             </div>

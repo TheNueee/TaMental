@@ -362,7 +362,7 @@
         </div>
     </div>
 
-    <!-- Hidden form for submission -->
+    <!-- Submit Pengukuran -->
     <form method="POST" action="{{ route('pengujiandass21') }}" id="assessmentForm" style="display: none;">
         @csrf
         <div id="hiddenInputs"></div>
@@ -370,10 +370,10 @@
 </div>
 
 <script>
-// Questions data from your controller
+// Pertanyaan dari controller buat ditampilin
 const questions = @json(array_values((new App\Http\Controllers\PengujianController())->getPertanyaan()));
 
-// Assessment state
+// State Awal Pengukuran
 let currentQuestion = 0;
 let answers = {};
 const totalQuestions = questions.length;
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadQuestion();
     updateProgress();
     
-    // Add click handlers to option buttons
+    // Handler click opsi jawaban
     document.querySelectorAll('.option-button').forEach(button => {
         button.addEventListener('click', function() {
             selectOption(this.dataset.value);
@@ -398,22 +398,22 @@ function loadQuestion() {
     const prevButton = document.getElementById('prevButton');
     const nextButton = document.getElementById('nextButton');
     
-    // Update question content
+    // Update Pertanyaan
     questionText.textContent = questions[currentQuestion];
     questionNumber.textContent = `Pertanyaan ${currentQuestion + 1}`;
     questionIndicator.textContent = `${currentQuestion + 1}/${totalQuestions}`;
     
-    // Update navigation buttons
+    // Update Button next and back
     prevButton.disabled = currentQuestion === 0;
     
-    // Update next button text
+    
     if (currentQuestion === totalQuestions - 1) {
         nextButton.textContent = 'Selesai ✓';
     } else {
         nextButton.textContent = 'Selanjutnya →';
     }
     
-    // Restore selected answer if exists
+    // Kondisi jika kembali kepertanyaan sebelumnya
     clearOptionSelection();
     if (answers[currentQuestion] !== undefined) {
         selectOption(answers[currentQuestion], false);
@@ -424,12 +424,12 @@ function loadQuestion() {
 }
 
 function selectOption(value, animate = true) {
-    // Clear previous selection
+    // Clear jawaban pilihan
     document.querySelectorAll('.option-button').forEach(btn => {
         btn.classList.remove('selected');
     });
     
-    // Select clicked option
+    // Select jawaban pilihan
     const selectedButton = document.querySelector(`[data-value="${value}"]`);
     selectedButton.classList.add('selected');
     
@@ -440,6 +440,7 @@ function selectOption(value, animate = true) {
     enableNextButton();
 }
 
+// Func Button
 function clearOptionSelection() {
     document.querySelectorAll('.option-button').forEach(btn => {
         btn.classList.remove('selected');

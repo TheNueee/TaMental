@@ -5,11 +5,11 @@
 <div class="site-index mt">
     <div class="bg-transparent rounded-3">
         <div class="container-fluid pt-3 pb-5 text-center">
-            <h1 class="display-4 mb-3">Terima kasih atas rasa kepedulian pada perasaanmu</h1>
+            <h1 class="display-4 mb-3">Terima kasih telah memberi ruang untuk mengenali perasaanmu 🌱</h1>
             <img src="{{ asset('images/landing/Heros.png') }}" alt="Ilustrasi Emosi"
                 class="img-fluid rounded mx-auto d-block" style="max-width: 450px; height: auto; margin-bottom: 30px;">
             <p class="fs-5 fw-light mb-4">
-                Kamu sudah sampai sini, yuk jelajahi perasaanmu bersama-ku 😉
+                Kamu sedang tumbuh dan belajar memahami diri, dan itu luar biasa.
                 <br> Apa yang bisa aku bantu?
             </p>
             <div class="d-flex justify-content-center gap-4 mt-3">
@@ -221,10 +221,6 @@
                                     <div class="landing-stat-number">Profesional</div>
                                     <div class="landing-stat-label">Bersertifikat dan Berlisensi</div>
                                 </div>
-                                <div class="landing-stat-item">
-                                    <div class="landing-stat-number">82.5%</div>
-                                    <div class="landing-stat-label">Tingkat Kepuasan</div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -246,7 +242,7 @@
                 <div class="col-lg-4 text-lg-end">
                     <div class="landing-cta-buttons">
                         <a href="{{ route('disclaimer') }}" class="btn btn-cta2 mb-2">
-                            Mulai Tes Gratis
+                            Mulai Pengukuran Gratis
                         </a>
                         <a href="{{ route('daftarprofesional') }}" class="btn btn-cta3">
                             Lihat Profesional
